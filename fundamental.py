@@ -51,6 +51,34 @@ def chain_rule_2(chain:Chain,x : np.ndarray) -> NDArray:
   # Apply the chain rule: derivative of second function at first output times derivative of first function
   return second_derivative * first_derivative
 
+def matrice_multiplication_forward(x: NDArray, W: NDArray) -> NDArray:
+    """
+    Computes the forward pass of matrix multiplication.
+    
+    Parameters:
+    - x: Input array (1D or 2D).
+    - W: Weight matrix (2D).
+    
+    Returns:
+    - Result of multiplying x with W.
+    """
+    assert x.shape[0] == W.shape[1], "Input x must have the same number of elements as W has rows."
+    return np.dot(x, W)
+
+def martrice_multiplication_backward(x: NDArray, W: NDArray) -> NDArray:
+    """
+    Computes the backward pass of matrix multiplication.
+    
+    Parameters:
+    - x: Input array (1D or 2D).
+    - W: Weight matrix (2D).
+    
+    Returns:
+    - Gradient of the loss with respect to x.
+    """
+    assert x.shape[0] == W.shape[1], "Input x must have the same number of elements as W has rows."
+    dxdn= np.transpose(W,(1,0))
+    return dxdn
 
 
 
