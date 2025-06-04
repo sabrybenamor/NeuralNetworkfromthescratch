@@ -63,7 +63,9 @@ def matrice_multiplication_forward(x: NDArray, W: NDArray) -> NDArray:
     - Result of multiplying x with W.
     """
     assert x.shape[0] == W.shape[1], "Input x must have the same number of elements as W has rows."
-    return np.dot(x, W)
+    N= np.dot(x, W)
+    S= sigmoid(N) # feeding the output of the matrix multiplication through sigmoid
+    return S
 
 def martrice_multiplication_backward(x: NDArray, W: NDArray) -> NDArray:
     """
@@ -80,5 +82,6 @@ def martrice_multiplication_backward(x: NDArray, W: NDArray) -> NDArray:
     dxdn= np.transpose(W,(1,0))
     return dxdn
 
+  
 
 
