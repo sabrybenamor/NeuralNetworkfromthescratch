@@ -87,6 +87,8 @@ def martrice_multiplication_backward(x: NDArray, W: NDArray) -> NDArray:
     dsdx= np.dot(dsdn,dndx)  # Chain rule: derivative of sigmoid times the derivative of the matrix multiplication
     return dsdx
 
+
+
  
 
 
