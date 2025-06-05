@@ -51,12 +51,12 @@ def chain_rule_2(chain:Chain,x : np.ndarray) -> NDArray:
   # Apply the chain rule: derivative of second function at first output times derivative of first function
   return second_derivative * first_derivative
 
-def matrice_multiplication_forward(x: NDArray, W: NDArray) -> NDArray:
+def matrice_multiplication_forward_1D(x: NDArray, W: NDArray) -> NDArray:
     """
     Computes the forward pass of matrix multiplication.
     
     Parameters:
-    - x: Input array (1D or 2D).
+    - x: Input array (1D).
     - W: Weight matrix (2D).
     
     Returns:
@@ -67,12 +67,12 @@ def matrice_multiplication_forward(x: NDArray, W: NDArray) -> NDArray:
     S= sigmoid(N) # feeding the output of the matrix multiplication through sigmoid
     return S
 
-def martrice_multiplication_backward(x: NDArray, W: NDArray) -> NDArray:
+def martrice_multiplication_backward_1D(x: NDArray, W: NDArray) -> NDArray:
     """
     Computes the backward pass of matrix multiplication.
     
     Parameters:
-    - x: Input array (1D or 2D).
+    - x: Input array (1D).
     - W: Weight matrix (2D).
     
     Returns:
