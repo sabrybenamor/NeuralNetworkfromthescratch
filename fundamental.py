@@ -3,6 +3,7 @@ from numpy.typing import NDArray  #optinal for type hints (type signature)
 from typing import Callable
 
 
+
 def square(x:np.ndarray)-> np.ndarray:
   return np.power(x,2)
 
@@ -105,7 +106,19 @@ def matrice_multiplication_forward_2D(x: NDArray, W: NDArray) -> NDArray:
     return S
 
 def matrice_multiplication_backward_2D(x: NDArray, W: NDArray) -> NDArray:
-   
+  assert x.shape[1] == W.shape[0], "Input x must have the same number of columns as W has rows."
+  N= np.dot(x, W)  # Forward pass to get the output of the matrix multiplication
+  S= sigmoid(N)  # Apply sigmoid to the output
+  dlds= np.ones_like(S)  # Gradient of the loss with respect to S
+  dsdn = deriv(sigmoid, N)  # Compute the derivative of the sigmoid function
+  dndx = np.transpose(W, (1, 0))
+
+  # Compute the gradient of the loss with respect to x
+  dldx = np.dot(dsdn, dndx)  # Chain rule: derivative of sigmoid times the derivative of the matrix multiplication
+  return dldx
+
+
+
 
 
  
