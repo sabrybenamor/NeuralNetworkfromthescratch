@@ -87,6 +87,25 @@ def martrice_multiplication_backward_1D(x: NDArray, W: NDArray) -> NDArray:
     dsdx= np.dot(dsdn,dndx)  # Chain rule: derivative of sigmoid times the derivative of the matrix multiplication
     return dsdx
 
+def matrice_multiplication_forward_2D(x: NDArray, W: NDArray) -> NDArray:
+    """
+    Computes the forward pass of matrix multiplication for 2D inputs.
+    
+    Parameters:
+    - x: Input array (2D).
+    - W: Weight matrix (2D).
+    
+    Returns:
+    - Result of multiplying x with W.
+    """
+    assert x.shape[1] == W.shape[0], "Input x must have the same number of columns as W has rows."
+    N = np.dot(x, W)
+    S = sigmoid(N)  # Feeding the output of the matrix multiplication through sigmoid
+    L = np.sum(S)
+    return S
+
+def matrice_multiplication_backward_2D(x: NDArray, W: NDArray) -> NDArray:
+   
 
 
  
