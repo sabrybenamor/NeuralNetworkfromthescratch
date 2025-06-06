@@ -2,7 +2,7 @@ import numpy as np
 from numpy.typing import NDArray  #optinal for type hints (type signature)
 from typing import Tuple, Dict, List
 
-def forward_linear_regression(x: NDArray, y: NDArray, weights:Dict[str,NDArray]) ->Tuple[float,Dict[str,NDArray]] NDArray:
+def forward_linear_regression(x: NDArray, y: NDArray, weights:Dict[str,NDArray]) ->Tuple[float,Dict[str,NDArray]] :
     """
     Computes the forward pass of a linear regression model.
     
