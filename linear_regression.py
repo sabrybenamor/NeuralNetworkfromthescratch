@@ -7,8 +7,8 @@ def forward_linear_regression(x: NDArray, y: NDArray, weights:Dict[str,NDArray])
     Computes the forward pass of a linear regression model.
     
     Parameters:
-    - x: Input array (1D).
-    - w: Weights array (1D).
+    - x: Input array .
+    - w: Weights array .
     - y: targets .
     
     Returns:
