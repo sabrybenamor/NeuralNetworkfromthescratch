@@ -52,10 +52,10 @@ def loss_gradient (forward_output: Dict[str, NDArray], weights: Dict[str, NDArra
     dL_dP = 2 * (P - Y)   # Gradient of loss w.r.t. predictions
     dP_dN = np.ones_like(N)  # Derivative of predictions w.r.t. linear combination
     dN_dw = np.transpose(X,(1,0)) # Derivative of linear combination w.r.t. weights
-    dN_db = np.ones_like(weights['B'])  # Derivative of linear combination w.r.t. bias
+    dP_db = np.ones_like(weights['B'])  # Derivative of predictions w.r.t. bias
 
     # Chain rule to compute gradients
     grad_w = np.dot(dN_dw, dL_dP * dP_dN)
-    grad_b = np.sum(dL_dP * dP_dN * dN_db)
+    grad_b = np.sum(dL_dP * dP_db)
 
     return {'grad_w': grad_w, 'grad_b': grad_b}
