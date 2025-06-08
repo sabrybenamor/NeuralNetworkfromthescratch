@@ -16,8 +16,8 @@ def forward_loss(X: NDArray, Y: NDArray, weights:Dict[str,NDArray]) -> Tuple[Dic
     Returns:
     - The loss value (float).
     """
-    assert X.shape[0] == Y.shape[0], "Input and target arrays must have the same number of observations."
-    assert weights.shape[0] == X.shape[1], "Weights must match the number of features in X."
+    #assert X.shape[0] == Y.shape[0], "Input and target arrays must have the same number of observations."
+    #assert weights.shape[0] == X.shape[1], "Weights must match the number of features in X."
     
     # Forward pass
     N1= np.dot(X, weights['W1']) + weights['B1']  # First layer linear combination
