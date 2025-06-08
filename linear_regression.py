@@ -1,6 +1,6 @@
 import numpy as np
 from numpy.typing import NDArray  #optinal for type hints (type signature)
-from typing import Tuple, Dict, List
+from typing import Tuple, Dict
 
 def forward_linear_regression(X: NDArray, Y: NDArray, weights:Dict[str,NDArray]) ->Tuple[float,Dict[str,NDArray]] :
     """
@@ -59,21 +59,3 @@ def loss_gradient (forward_output: Dict[str, NDArray], weights: Dict[str, NDArra
     grad_b = (dL_dP * dP_db).sum(axis=0)  # Gradient of loss w.r.t. bias
 
     return {'grad_w': grad_w, 'grad_b': grad_b}
-
-def predict(X: NDArray, weights: Dict[str, NDArray]) -> NDArray:
-    """
-    Predicts the output of the linear regression model given input data and weights.
-    
-    Parameters:
-    - X: Input data.
-    - weights: Weights dictionary containing 'W' and 'B'.
-    
-    Returns:
-    - Predicted output.
-    """
-    assert X.shape[1] == weights['W'].shape[0], "Input features must match the number of weights."
-    assert weights['B'].shape[0] == 1, "Bias must be a scalar."
-    
-    N = np.dot(X, weights['W'])
-    P = N + weights['B']  # Add bias to the linear combination
-    return P
