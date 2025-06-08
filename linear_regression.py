@@ -60,23 +60,3 @@ def loss_gradient (forward_output: Dict[str, NDArray], weights: Dict[str, NDArra
 
     return {'grad_w': grad_w, 'grad_b': grad_b}
 
-np.random.seed(0)  # for reproducibility
-
-# Random input: 5 samples, 3 features
-X = np.random.randn(5, 3)
-
-# Random target outputs: 5 samples, 1 output
-Y = np.random.randn(5, 1)
-
-# Random weights: 3 features -> 1 output
-weights = {
-    'W': np.random.randn(3, 1),
-    'B': np.random.randn(1, 1)
-}
-
-loss, forward_output = forward_linear_regression(X, Y, weights)
-print("Loss:", loss)
-
-gradients = loss_gradient(forward_output, weights)
-print("Gradient w.r.t W:", gradients['grad_w'])
-print("Gradient w.r.t B:", gradients['grad_b'])
