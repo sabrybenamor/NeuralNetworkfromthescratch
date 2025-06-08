@@ -14,15 +14,15 @@ def forward_linear_regression(X: NDArray, Y: NDArray, weights:Dict[str,NDArray])
     Returns:
     - The output of the linear regression model.
     """
-    assert X.shape[0]== Y.shape[0], "Input and target arrays must have the same length."
-    assert X.shape [0]== weights['W'].shape[1] ,"assert matrix multiplication is valid"
+    assert X.shape[0]== Y.shape[0], "Input and target arrays must have the same length (number of observations)."
+    assert X.shape [1]== weights['W'].shape[0] ,"assert matrix multiplication is valid"
     assert weights['B'].shape[0]== weights['B'].shape[1]==1, "Bias must be a scalar."
 
     # Compute the output of the linear regression model
-    N=np.dot(weights['W'], X) 
+    N=np.dot(X,weights['W']) 
     P=N + weights['B']  # Add bias to the linear combination
     # Compute the loss (mean squared error)
-    loss = np.mean((P - Y) ** 2)
+    loss = np.mean(np.power(P - Y, 2))  # Mean Squared Error
     # Store the output and weights in a dictionary
     forward_output : Dict[str, NDArray] = {}
     forward_output['X']=  X
@@ -53,9 +53,30 @@ def loss_gradient (forward_output: Dict[str, NDArray], weights: Dict[str, NDArra
     dP_dN = np.ones_like(N)  # Derivative of predictions w.r.t. linear combination
     dN_dw = np.transpose(X,(1,0)) # Derivative of linear combination w.r.t. weights
     dP_db = np.ones_like(weights['B'])  # Derivative of predictions w.r.t. bias
-
+    dL_dN = dL_dP * dP_dN  # Chain rule to combine gradients
     # Chain rule to compute gradients
-    grad_w = np.dot(dN_dw, dL_dP * dP_dN)
-    grad_b = np.sum(dL_dP * dP_db)
+    grad_w = np.dot(dN_dw, dL_dN)  # Gradient of loss w.r.t. weights    
+    grad_b = (dL_dP * dP_db).sum(axis=0)  # Gradient of loss w.r.t. bias
 
     return {'grad_w': grad_w, 'grad_b': grad_b}
+
+np.random.seed(0)  # for reproducibility
+
+# Random input: 5 samples, 3 features
+X = np.random.randn(5, 3)
+
+# Random target outputs: 5 samples, 1 output
+Y = np.random.randn(5, 1)
+
+# Random weights: 3 features -> 1 output
+weights = {
+    'W': np.random.randn(3, 1),
+    'B': np.random.randn(1, 1)
+}
+
+loss, forward_output = forward_linear_regression(X, Y, weights)
+print("Loss:", loss)
+
+gradients = loss_gradient(forward_output, weights)
+print("Gradient w.r.t W:", gradients['grad_w'])
+print("Gradient w.r.t B:", gradients['grad_b'])
