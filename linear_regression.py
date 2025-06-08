@@ -60,3 +60,20 @@ def loss_gradient (forward_output: Dict[str, NDArray], weights: Dict[str, NDArra
 
     return {'grad_w': grad_w, 'grad_b': grad_b}
 
+def predict(X: NDArray, weights: Dict[str, NDArray]) -> NDArray:
+    """
+    Predicts the output of the linear regression model given input data and weights.
+    
+    Parameters:
+    - X: Input data.
+    - weights: Weights dictionary containing 'W' and 'B'.
+    
+    Returns:
+    - Predicted output.
+    """
+    assert X.shape[1] == weights['W'].shape[0], "Input features must match the number of weights."
+    assert weights['B'].shape[0] == 1, "Bias must be a scalar."
+    
+    N = np.dot(X, weights['W'])
+    P = N + weights['B']  # Add bias to the linear combination
+    return P
