@@ -89,3 +89,21 @@ def loss_gradient_2_layers(forward_output: Dict[str, NDArray], weights: Dict[str
     }
 
 
+def predict(X: NDArray, weights: Dict[str, NDArray]) -> NDArray:
+    """
+    Predicts the output of a two-layer neural network given input data and weights.
+    
+    Parameters:
+    - X: Input array .
+    - weights: Weights dictionary containing 'W1', 'B1', 'W2', and 'B2'.
+    
+    Returns:
+    - Predicted output.
+    """
+    M1 = np.dot(X, weights['W1'])  # First layer linear combination
+    N1 = M1 + weights['B1']  # First layer linear combination
+    first_layer_output = sigmoid(N1)  # Sigmoid activation
+    M2 = np.dot(first_layer_output, weights['W2'])  # Second layer linear combination
+    N2 = M2 + weights['B2']  # Second layer linear combination
+    P = sigmoid(N2)  # Sigmoid activation for output layer
+    return P
